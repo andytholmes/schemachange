@@ -1,7 +1,7 @@
 config-version: 1
 
 # The root folder for the database change scripts
-root-folder: '/path/to/folder'
+root-folder: '.'
 
 # The modules folder for jinja macros and templates to be used across multiple scripts.
 modules-folder: null
@@ -10,19 +10,19 @@ modules-folder: null
 snowflake-account: 'noefgcv-jv58472'
 
 # The name of the snowflake user
-snowflake-user: 'ANDY'
+snowflake-user: 'Andy'
 
-# The name of the default role to use. Can be overrideen in the change scripts.
-snowflake-role: 'ACCOUNTADMIN'
+# The name of the default role to use. Can be overridden in the change scripts.
+snowflake-role: ACCOUNTADMIN
 
 # The name of the default warehouse to use. Can be overridden in the change scripts.
-snowflake-warehouse: 'example_wh'
+snowflake-warehouse: TERRAFORM_WH
 
 # The name of the default database to use. Can be overridden in the change scripts.
-snowflake-database: example_db
+snowflake-database: TERRAFORM_DB
 
 # Used to override the default name of the change history table (the default is METADATA.SCHEMACHANGE.CHANGE_HISTORY)
-change-history-table: null
+change-history-table: TERRAFORM_DB.SCHEMACHANGE.CHANGE_HISTORY
 
 # Define values for the variables to replaced in change scripts
 vars:
@@ -32,7 +32,7 @@ vars:
     var3: 'value3' # This is considered a secret and will not be displayed in any output
 
 # Create the change history schema and table, if they do not exist (the default is False)
-create-change-history-table: false
+create-change-history-table: true
 
 # Enable autocommit feature for DML commands (the default is False)
 autocommit: false
@@ -44,7 +44,4 @@ verbose: false
 dry-run: false
 
 # A string to include in the QUERY_TAG that is attached to every SQL statement executed
-query-tag: 'SCHEMACHANGE'
-
-pre_deploy:
-  - sql: use warehouse example_wh;
+query-tag: 'SCHEMACHANGE-05072126-manual'
